@@ -85,6 +85,24 @@ struct timestamp *build_timestamp(char *date);
 
 int days_to_year(int days);
 
+/* get_elapsed_days_in_current_year
+ * Returns the number of days that have elapsed in the current year.
+ * The arguments are always valid, meaning that the year corresponding to the second argument,
+ * according to the previous function, is always equal to the first argument.
+ * 
+ * For example, if the parameters are year 1971 and 500 days, which equals to 1 year and 135 days,
+ * it means that 135 days have elapsed in the year 1971. So the function returns 135.
+ * 
+ * params: 
+ *
+ * - year: the current year (>= 1970)
+ * - days_since_epoch: the number of days since 1970-01-01.
+ *
+ * return: the number of days that have elapsed in the current year.
+*/
+
+int get_elapsed_days_in_current_year(int year, int days_since_epoch);
+
 /* get_current_date
 ** Build a timestamp structure containing the current time.
 **
