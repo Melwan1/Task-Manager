@@ -35,7 +35,7 @@ static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
     {
         return 0;
     }
-    if (!verify_within_range(timestamp->year, 2000, 2100))
+    if (!veri<fy_within_range(timestamp->year, 2000, 2100))
     {
         return 0;
     }
@@ -83,6 +83,21 @@ struct timestamp *build_timestamp(char *date)
         print_error_bad_date_format();
     }
     return new_timestamp;
+}
+
+static int days_to_year_rec(int days, int current_year)
+{
+    int days_in_year = DAYS_IN_1_YEAR + (current_year % 4 == 0) && (current_year % 100)); // 365 if the year is not a leap year, 366 if it is.
+    if (days < days_in_year) 
+    {
+        return current_year;
+    }
+    return days_to_years_rec(days - days_in_year, current_year + 1);
+}
+
+static int days_to_year(int days)
+{
+    return days_to_year_rec(days, EPOCH_YEAR);
 }
 
 struct timestamp *get_current_date(void)
