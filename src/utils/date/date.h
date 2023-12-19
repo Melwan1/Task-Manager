@@ -39,18 +39,6 @@ int days_in_year(int year);
 
 int verify_within_range(int to_test, int lower_bound, int higher_bound);
 
-/* build_timestamp 
-** Build a timestamp structure from a string date.
-**
-** params:
-**
-** - date: string representing the date to be formatted. The date must follow the pattern "YYYY-MM-DD HH:MM:SS"
-**
-** return: the built timestamp structure.
-*/
-
-struct timestamp *build_timestamp(char *date);
-
 /* verify_timestamp
 ** Checks whether a timestamp is valid.
 ** A timestamp is valid if all 6 tokens (year, month, day, hour, minute, second) have successfully been scanned,
@@ -71,6 +59,31 @@ struct timestamp *build_timestamp(char *date);
 */
 
 int verify_timestamp(struct timestamp *timestamp, int tokens_scanned);
+
+/* build_timestamp 
+** Build a timestamp structure from a string date.
+**
+** params:
+**
+** - date: string representing the date to be formatted. The date must follow the pattern "YYYY-MM-DD HH:MM:SS"
+**
+** return: the built timestamp structure.
+*/
+
+struct timestamp *build_timestamp(char *date);
+
+/* days_to_year
+ * Returns the year corresponding to the epoch days given as parameter. The epoch is 1970-01-01 00:00:00.
+ * For example, if the parameter is 500, which is 1 year and 135 days, the year is 1971.
+ *
+ * params:
+ * 
+ * - days: the number of days since the epoch.
+ *
+ * return: the year corresponding to the number of days since the epoch.
+*/
+
+int days_to_year(int days);
 
 /* get_current_date
 ** Build a timestamp structure containing the current time.
