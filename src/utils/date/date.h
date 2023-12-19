@@ -25,6 +25,20 @@ struct timestamp
 
 int days_in_year(int year);
 
+/* verify_within_range
+** Returns true if the input number is within the range given by the other parameters, false otherwise.
+**
+** params: 
+**
+** - to_test: the number to verify whether it falls in the range,
+** - lower_bound: the lower bound of the range,
+** - higher_bound: the higher bound of the range.
+**
+** return: the boolean described above.
+*/
+
+int verify_within_range(int to_test, int lower_bound, int higher_bound);
+
 /* build_timestamp 
 ** Build a timestamp structure from a string date.
 **
