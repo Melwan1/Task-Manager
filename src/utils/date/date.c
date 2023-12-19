@@ -1,9 +1,13 @@
 #include "date.h"
 
+#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
 
 #define TIMESTAMP_FIELD_NUMBER 6 // the number of fields for the timestamp structure
+#define SECONDS_IN_1_DAY 86400
+#define DAYS_IN_1_YEAR 365
+#define EPOCH_YEAR 1970
 
 static void print_error_bad_date_format(void)
 {
@@ -78,5 +82,33 @@ struct timestamp *build_timestamp(char *date)
     {
         print_error_bad_date_format();
     }
+    return new_timestamp;
+}
+
+struct timestamp *get_current_date(void)
+{
+    struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
+    if (!new_timestamp)
+    {
+        fprintf(stderr, "task_manager: get_current_date: insufficient memory\n");
+        return NULL;
+    }
+    size_t current_time = time(NULL); // int would be fine until Jan 19, 2038 when UNIX timestamp will exceed int capacity.
+    if (current_time == -1)
+    {
+        fprintf(stderr, "task_manager: get_current_date: couldn't get current_time");
+        free(new_timestamp);
+        return NULL;
+    }
+
+    int days_since_epoch = current_time / SECONDS_IN_DAY;
+
+    new_timestamp->year = days_to_year(days_since_epoch);
+    new_timestamp->month = get_month(new_timestamp->year, days_since_epoch);
+    new_timestamp->day = get_day(new_timestamp->year, new_timestamp->month, days_since_epoch);
+    new_timestamp->second = (current_time % 60);
+    new_timestamp->minute = (current_time % 3600) / 60;
+    new_timestamp->hour = (current_time % 86400) / 3600;
+
     return new_timestamp;
 }
