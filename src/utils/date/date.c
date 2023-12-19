@@ -107,7 +107,7 @@ static int get_elapsed_days_in_current_year_rec(int year, int days_since_epoch)
     {
         return days_since_epoch;
     }
-    return get_elapsed_days_in_current_year_rec(year - 1, days_since_epoch - days_in_year(year);
+    return get_elapsed_days_in_current_year_rec(year - 1, days_since_epoch - days_in_year(year));
 }
 
 static int get_elapsed_days_in_current_year(int year, int days_since_epoch)
