@@ -13,7 +13,7 @@
 
 int days_in_year(int year)
 {
-    return DAYS_IN_1_YEAR + (!(year % 4) && (year % 100));
+    return DAYS_IN_1_YEAR + (!(year % 4) && ((year % 100) || !(year % 400)));
 }
 
 static void print_error_bad_date_format(void)
@@ -124,7 +124,7 @@ void fill_month_and_day(struct timestamp *timestamp,
     int day_number_in_current_year =
         get_elapsed_days_in_current_year(timestamp->year, days_since_epoch)
         + 1; // has to be 365 (366 if leap year) or less
-    int days_in_month[12] = { 31, 28 + (!(timestamp->year % 4) && (timestamp->year % 100)),
+    int days_in_month[12] = { 31, 28 + (!(timestamp->year % 4) && ((timestamp->year % 100) || !(timestamp->year % 400))),
                               31, 30,
                               31, 30,
                               31, 31,
