@@ -11,7 +11,7 @@
 #define DAYS_IN_1_YEAR 365
 #define EPOCH_YEAR 1970
 
-static int days_in_year(int year)
+int days_in_year(int year)
 {
     return DAYS_IN_1_YEAR + (!(year % 4) && (year % 100));
 }
@@ -27,12 +27,12 @@ static void print_error_bad_date_format(void)
     fprintf(stderr, error_string);
 }
 
-static int verify_within_range(int to_test, int lower_bound, int higher_bound)
+int verify_within_range(int to_test, int lower_bound, int higher_bound)
 {
     return ((to_test >= lower_bound) && (to_test <= higher_bound));
 }
 
-static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
+int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
 {
     int days_in_month[12] = {31, 28 + !(timestamp->year % 4), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // February has 29 days if the year is a leap year, 28 otherwise.
     if (tokens_scanned != TIMESTAMP_FIELD_NUMBER)
@@ -99,7 +99,7 @@ static int days_to_year_rec(int days, int current_year)
     return days_to_year_rec(days - days_in_current_year, current_year + 1);
 }
 
-static int days_to_year(int days)
+int days_to_year(int days)
 {
     return days_to_year_rec(days, EPOCH_YEAR);
 }
@@ -113,12 +113,12 @@ static int get_elapsed_days_in_current_year_rec(int year, int days_since_epoch)
     return get_elapsed_days_in_current_year_rec(year - 1, days_since_epoch - days_in_year(year));
 }
 
-static int get_elapsed_days_in_current_year(int year, int days_since_epoch)
+int get_elapsed_days_in_current_year(int year, int days_since_epoch)
 {
     return get_elapsed_days_in_current_year_rec(year, days_since_epoch);
 }
 
-static void fill_month_and_day(struct timestamp *timestamp,
+void fill_month_and_day(struct timestamp *timestamp,
                                int days_since_epoch)
 {
     int day_number_in_current_year =
