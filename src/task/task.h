@@ -34,4 +34,15 @@ struct task
 
 struct task *task_create(char *due_date, char *tag, char *title, char *comment);
 
+/* task_delete
+** Deletes a task.
+** params:
+**
+** - task: the task to delete.
+**
+** return: void
+*/
+
+void task_delete(struct task *task);
+
 #endif /* !TASK_H */
