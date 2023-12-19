@@ -23,4 +23,14 @@ struct timestamp
 
 struct timestamp *build_timestamp(char *date);
 
+/* get_current_date
+** Build a timestamp structure containing the current time.
+**
+** params: None
+**
+** return: the built timestamp strucure.
+*/
+
+struct timestamp *get_current_date(void);
+
 #endif /* !DATE_H */
