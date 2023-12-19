@@ -103,6 +103,20 @@ int days_to_year(int days);
 
 int get_elapsed_days_in_current_year(int year, int days_since_epoch);
 
+/* fill_month_and_day
+ * Fills the month and day field of the input structure.
+ * This function makes use of the year already filled in the structure to compute the rest of the fields.
+ * 
+ * params: 
+ *
+ * - timestamp: the structure to be filled
+ * - days_since_epoch: the number of days since 1970-01-01.
+ *
+ * return: void
+*/
+
+void fill_month_and_day(struct timestamp *timestamp, int days_since_epoch);
+
 /* get_current_date
 ** Build a timestamp structure containing the current time.
 **
