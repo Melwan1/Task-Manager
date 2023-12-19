@@ -96,6 +96,20 @@ static int days_to_year(int days)
     return days_to_year_rec(days, EPOCH_YEAR);
 }
 
+static int get_elapsed_days_in_current_year_rec(int year, int days_since_epoch)
+{
+    if (year == EPOCH_YEAR)
+    {
+        return days_since_epoch;
+    }
+    return get_elapsed_days_in_current_year_rec(year - 1, days_since_epoch - days_in_year(year);
+}
+
+static int get_elapsed_days_in_current_year(int year, int days_since_epoch)
+{
+    return get_elapsed_days_in_current_year_rec(year, days_since_epoch);
+}
+
 static void fill_month_and_day(struct timestamp *timestamp,
                                int days_since_epoch)
 {
