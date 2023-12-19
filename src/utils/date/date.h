@@ -11,6 +11,20 @@ struct timestamp
     int second;
 };
 
+/* days_in_year
+** Gives the number of days in the input year. Returns 365 if the year is not a leap year and 366 if it is.
+** A leap year is divisible by 4 but not by 100. The leap years in the current century are
+** 2004, 2008, 2012 ... 2092, 2096, but not 2100.
+**
+** params:
+**
+** - year: the year number to calculate the days on.
+**
+** return: the number of days within that year.
+*/
+
+int days_in_year(int year);
+
 /* build_timestamp 
 ** Build a timestamp structure from a string date.
 **
