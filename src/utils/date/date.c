@@ -5,6 +5,20 @@
 
 #define TIMESTAMP_FIELD_NUMBER 6 // the number of fields for the timestamp structure
 
+void print_error_bad_date_format(void)
+{
+    char *error_string = "task_manager: build_timestamp: bad date format.\n 
+                            Usage: year-month-day hour:minute:second\n
+                            Conditions: \n
+                            \t 2000 <= year <= 2100\n 
+                            \t 1 <= month <= 12\n
+                            \t 1 <= day <= (28|30|31) (depends on the month)\n
+                            \t 0 <= hour <= 23\n
+                            \t 0 <= minute <= 59\n 
+                            \t 0 <= second <= 59\n";
+    fprintf(stderr, error_string);
+}
+
 struct timestamp *build_timestamp(char *date)
 {
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
@@ -23,16 +37,7 @@ struct timestamp *build_timestamp(char *date)
     
     if (!verify_timestamp(new_timestamp, tokens_scanned))
     {
-        char *error_string = "task_manager: build_timestamp: bad date format.\n 
-                            Usage: year-month-day hour:minute:second\n
-                            Conditions: \n
-                            \t 2000 <= year <= 2100\n 
-                            \t 1 <= month <= 12\n
-                            \t 1 <= day <= (28|30|31) (depends on the month)\n
-                            \t 0 <= hour <= 23\n
-                            \t 0 <= minute <= 59\n 
-                            \t 0 <= second <= 59\n";
-        fprintf(stderr, error_string);
+        print_error_bad_date_format();
     }
     return new_timestamp;
 }
