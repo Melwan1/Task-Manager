@@ -13,10 +13,11 @@ struct timestamp
 
 struct task 
 {
-    int id;
     struct timestamp due_date;
     struct timestamp creation_date;
     char *tag;
+    char *description;
+    char *comment;
 };
 
 #endif /* !TASK_H */
