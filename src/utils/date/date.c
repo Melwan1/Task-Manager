@@ -83,12 +83,12 @@ struct timestamp *build_timestamp(char *date)
 
 static int days_to_year_rec(int days, int current_year)
 {
-    int days_in_year = DAYS_IN_1_YEAR + (current_year % 4 == 0) && (current_year % 100)); // 365 if the year is not a leap year, 366 if it is.
+    int days_in_year = DAYS_IN_1_YEAR + ((current_year % 4 == 0) && (current_year % 100)); // 365 if the year is not a leap year, 366 if it is.
     if (days < days_in_year)
     {
         return current_year;
     }
-    return days_to_years_rec(days - days_in_year, current_year + 1);
+    return days_to_year_rec(days - days_in_year, current_year + 1);
 }
 
 static int days_to_year(int days)
