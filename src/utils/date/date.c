@@ -19,6 +19,11 @@ static void print_error_bad_date_format(void)
     fprintf(stderr, error_string);
 }
 
+static int verify_within_range(int to_test, int lower_bound, int higher_bound)
+{
+    return ((to_test >= lower_bound) && (to_test <= higher_bound));
+}
+
 static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
 {
     int days_in_month[12] = {31, 28 + !(timestamp->year % 4), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31} // February has 29 days if the year is a leap year, 28 otherwise.
