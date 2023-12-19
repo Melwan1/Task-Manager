@@ -83,6 +83,8 @@ struct timestamp *build_timestamp(char *date)
     if (!verify_timestamp(new_timestamp, tokens_scanned))
     {
         print_error_bad_date_format();
+        free(new_timestamp);
+        return NULL;
     }
     return new_timestamp;
 }
