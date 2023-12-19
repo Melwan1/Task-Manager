@@ -51,6 +51,27 @@ int verify_within_range(int to_test, int lower_bound, int higher_bound);
 
 struct timestamp *build_timestamp(char *date);
 
+/* verify_timestamp
+** Checks whether a timestamp is valid.
+** A timestamp is valid if all 6 tokens (year, month, day, hour, minute, second) have successfully been scanned,
+** and if all associated integers fall within their respective range.
+** - year : between 2000 and 2100,
+** - month : between 1 and 12,
+** - day: between 1 and the number of days in the month above,
+** - hour: between 0 and 23,
+** - minute: between 0 and 59,
+** - second: between 0 and 59.
+**
+** params: 
+**
+** - timestamp: the timestamp structure to be tested,
+** - tokens_scanned: the number of tokens scanned by scanf-like function.
+** 
+** return: true if the timestamp is valid, false otherwise.
+*/
+
+int verify_timestamp(struct timestamp *timestamp, int tokens_scanned);
+
 /* get_current_date
 ** Build a timestamp structure containing the current time.
 **
