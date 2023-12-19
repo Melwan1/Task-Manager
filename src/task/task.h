@@ -13,8 +13,8 @@ struct timestamp
 
 struct task 
 {
-    struct timestamp due_date;
-    struct timestamp creation_date;
+    struct timestamp *due_date;
+    struct timestamp *creation_date;
     char *tag;
     char *title;
     char *comment;
