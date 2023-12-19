@@ -10,6 +10,11 @@
 #define DAYS_IN_1_YEAR 365
 #define EPOCH_YEAR 1970
 
+static int days_in_year(int year)
+{
+    return DAYS_IN_1_YEAR + (!(year % 4) && (year % 100));
+}
+
 static void print_error_bad_date_format(void)
 {
     char *error_string =
