@@ -100,6 +100,21 @@ static int days_to_year(int days)
     return days_to_year_rec(days, EPOCH_YEAR);
 }
 
+
+static int get_month(int year, int days_since_epoch)
+{
+    int day_number_in_current_year = get_elapsed_days_in_current_year(year, days_since_epoch) + 1; // has to be 365 (366 if leap year) or less
+    int days_in_month[12] = { 31, 28 + (!(year % 4) && (year % 100)), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int month = 1;
+    int result_day = day_number_in_current_year;
+    while (result_day > days_in_month[month - 1])
+    {
+        result_day -= days_in_month[month - 1];
+        month++;
+    }
+    return month;
+}
+
 struct timestamp *get_current_date(void)
 {
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
