@@ -17,5 +17,7 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment)
 
 void task_delete(struct task *task)
 {
+    free(task->due_date);
+    free(task->creation_date);
     free(task);
 }
