@@ -19,6 +19,40 @@ static void print_error_bad_date_format(void)
     fprintf(stderr, error_string);
 }
 
+static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
+{
+    int days_in_month[12] = {31, 28 + !(timestamp->year % 4), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31} // February has 29 days if the year is a leap year, 28 otherwise.
+    if (tokens_scanned != TIMESTAMP_FIELD_NUMBER)
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->year, 2000, 2100))
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->month, 1, 12))
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->day, 1, days_in_month(timestamp->month - 1)))
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->hour, 0, 23))
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->minute, 0, 59))
+    {
+        return 0;
+    }
+    if (!verify_within_range(timestamp->second, 0, 59))
+    {
+        return 0;
+    }
+    return 1;
+}
+
 struct timestamp *build_timestamp(char *date)
 {
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
