@@ -5,7 +5,7 @@
 
 #define TIMESTAMP_FIELD_NUMBER 6 // the number of fields for the timestamp structure
 
-void print_error_bad_date_format(void)
+static void print_error_bad_date_format(void)
 {
     char *error_string = "task_manager: build_timestamp: bad date format.\n 
                             Usage: year-month-day hour:minute:second\n
