@@ -1,25 +1,23 @@
 #include "date.h"
 
 #include <stddef.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#define TIMESTAMP_FIELD_NUMBER 6 // the number of fields for the timestamp structure
+#define TIMESTAMP_FIELD_NUMBER                                                 \
+    6 // the number of fields for the timestamp structure
 #define SECONDS_IN_1_DAY 86400
 #define DAYS_IN_1_YEAR 365
 #define EPOCH_YEAR 1970
 
 static void print_error_bad_date_format(void)
 {
-    char *error_string = "task_manager: build_timestamp: bad date format.\n 
-                            Usage: year-month-day hour:minute:second\n
-                            Conditions: \n
-                            \t 2000 <= year <= 2100\n 
-                            \t 1 <= month <= 12\n
-                            \t 1 <= day <= (28|30|31) (depends on the month)\n
-                            \t 0 <= hour <= 23\n
-                            \t 0 <= minute <= 59\n 
-                            \t 0 <= second <= 59\n";
+    char *error_string =
+        "task_manager: build_timestamp: bad date format.\nUsage: "
+        "year-month-day hour:minute:second\nConditions: \n\t 2000 <= year <= "
+        "2100\n\t 1 <= month <= 12\n\t 1 <= day <= (28|30|31) (depends on the "
+        "month)\n\t 0 <= hour <= 23\n\t 0 <= minute <= 59\n \t 0 <= second <= "
+        "59\n";
     fprintf(stderr, error_string);
 }
 
@@ -35,7 +33,7 @@ static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
     {
         return 0;
     }
-    if (!veri<fy_within_range(timestamp->year, 2000, 2100))
+    if (!veri < fy_within_range(timestamp->year, 2000, 2100))
     {
         return 0;
     }
@@ -43,7 +41,8 @@ static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
     {
         return 0;
     }
-    if (!verify_within_range(timestamp->day, 1, days_in_month(timestamp->month - 1)))
+    if (!verify_within_range(timestamp->day, 1,
+                             days_in_month(timestamp->month - 1)))
     {
         return 0;
     }
@@ -70,14 +69,11 @@ struct timestamp *build_timestamp(char *date)
         fprintf(stderr, "task_manager: build_timestamp: insufficient memory\n");
         return NULL;
     }
-    int tokens_scanned = sscanf(date, "%d-%d-%d %d:%d:%d",
-           &(new_timestamp->year),
-           &(new_timestamp->month),
-           &(new_timestamp->day),
-           &(new_timestamp->hour),
-           &(new_timestamp->minute),
-           &(new_timestamp->second));
-    
+    int tokens_scanned = sscanf(
+        date, "%d-%d-%d %d:%d:%d", &(new_timestamp->year),
+        &(new_timestamp->month), &(new_timestamp->day), &(new_timestamp->hour),
+        &(new_timestamp->minute), &(new_timestamp->second));
+
     if (!verify_timestamp(new_timestamp, tokens_scanned))
     {
         print_error_bad_date_format();
@@ -88,7 +84,7 @@ struct timestamp *build_timestamp(char *date)
 static int days_to_year_rec(int days, int current_year)
 {
     int days_in_year = DAYS_IN_1_YEAR + (current_year % 4 == 0) && (current_year % 100)); // 365 if the year is not a leap year, 366 if it is.
-    if (days < days_in_year) 
+    if (days < days_in_year)
     {
         return current_year;
     }
@@ -100,10 +96,18 @@ static int days_to_year(int days)
     return days_to_year_rec(days, EPOCH_YEAR);
 }
 
-static void fill_month_and_day(struct timestamp *timestamp, int days_since_epoch)
+static void fill_month_and_day(struct timestamp *timestamp,
+                               int days_since_epoch)
 {
-    int day_number_in_current_year = get_elapsed_days_in_current_year(timestamp->year, days_since_epoch) + 1; // has to be 365 (366 if leap year) or less
-    int days_in_month[12] = { 31, 28 + (!(year % 4) && (year % 100)), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    int day_number_in_current_year =
+        get_elapsed_days_in_current_year(timestamp->year, days_since_epoch)
+        + 1; // has to be 365 (366 if leap year) or less
+    int days_in_month[12] = { 31, 28 + (!(year % 4) && (year % 100)),
+                              31, 30,
+                              31, 30,
+                              31, 31,
+                              30, 31,
+                              30, 31 };
     int month = 1;
     int result_day = day_number_in_current_year;
     while (result_day > days_in_month[month - 1])
@@ -121,13 +125,17 @@ struct timestamp *get_current_date(void)
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
     if (!new_timestamp)
     {
-        fprintf(stderr, "task_manager: get_current_date: insufficient memory\n");
+        fprintf(stderr,
+                "task_manager: get_current_date: insufficient memory\n");
         return NULL;
     }
-    size_t current_time = time(NULL); // int would be fine until Jan 19, 2038 when UNIX timestamp will exceed int capacity.
+    size_t current_time =
+        time(NULL); // int would be fine until Jan 19, 2038 when UNIX timestamp
+                    // will exceed int capacity.
     if (current_time == -1)
     {
-        fprintf(stderr, "task_manager: get_current_date: couldn't get current_time");
+        fprintf(stderr,
+                "task_manager: get_current_date: couldn't get current_time");
         free(new_timestamp);
         return NULL;
     }
