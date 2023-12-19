@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define TIMESTAMP_FIELD_NUMBER                                                 \
     6 // the number of fields for the timestamp structure
@@ -151,7 +152,8 @@ struct timestamp *get_current_date(void)
     size_t current_time =
         time(NULL); // int would be fine until Jan 19, 2038 when UNIX timestamp
                     // will exceed int capacity.
-    if (current_time == -1)
+    size_t max_size_t = -1;
+    if (current_time == max_size_t)
     {
         fprintf(stderr,
                 "task_manager: get_current_date: couldn't get current_time");
@@ -159,7 +161,7 @@ struct timestamp *get_current_date(void)
         return NULL;
     }
 
-    int days_since_epoch = current_time / SECONDS_IN_DAY;
+    int days_since_epoch = current_time / SECONDS_IN_1_DAY;
 
     new_timestamp->year = days_to_year(days_since_epoch);
     fill_month_and_day(new_timestamp, days_since_epoch);
