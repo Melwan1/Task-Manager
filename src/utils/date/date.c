@@ -28,12 +28,12 @@ static int verify_within_range(int to_test, int lower_bound, int higher_bound)
 
 static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
 {
-    int days_in_month[12] = {31, 28 + !(timestamp->year % 4), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31} // February has 29 days if the year is a leap year, 28 otherwise.
+    int days_in_month[12] = {31, 28 + !(timestamp->year % 4), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; // February has 29 days if the year is a leap year, 28 otherwise.
     if (tokens_scanned != TIMESTAMP_FIELD_NUMBER)
     {
         return 0;
     }
-    if (!veri < fy_within_range(timestamp->year, 2000, 2100))
+    if (!verify_within_range(timestamp->year, 2000, 2100))
     {
         return 0;
     }
@@ -42,7 +42,7 @@ static int verify_timestamp(struct timestamp *timestamp, int tokens_scanned)
         return 0;
     }
     if (!verify_within_range(timestamp->day, 1,
-                             days_in_month(timestamp->month - 1)))
+                             days_in_month[timestamp->month - 1]))
     {
         return 0;
     }
