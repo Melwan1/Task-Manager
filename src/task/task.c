@@ -13,3 +13,8 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment)
     new_task->comment = comment;
     return new_task;
 }
+
+void task_delete(struct task *task)
+{
+    free(task);
+}
