@@ -100,10 +100,9 @@ static int days_to_year(int days)
     return days_to_year_rec(days, EPOCH_YEAR);
 }
 
-
-static int get_month(int year, int days_since_epoch)
+static void fill_month_and_day(struct timestamp *timestamp, int days_since_epoch)
 {
-    int day_number_in_current_year = get_elapsed_days_in_current_year(year, days_since_epoch) + 1; // has to be 365 (366 if leap year) or less
+    int day_number_in_current_year = get_elapsed_days_in_current_year(timestamp->year, days_since_epoch) + 1; // has to be 365 (366 if leap year) or less
     int days_in_month[12] = { 31, 28 + (!(year % 4) && (year % 100)), 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
     int month = 1;
     int result_day = day_number_in_current_year;
@@ -112,7 +111,9 @@ static int get_month(int year, int days_since_epoch)
         result_day -= days_in_month[month - 1];
         month++;
     }
-    return month;
+    timestamp->month = month;
+    timestamp->day = result_day;
+    return;
 }
 
 struct timestamp *get_current_date(void)
@@ -134,8 +135,7 @@ struct timestamp *get_current_date(void)
     int days_since_epoch = current_time / SECONDS_IN_DAY;
 
     new_timestamp->year = days_to_year(days_since_epoch);
-    new_timestamp->month = get_month(new_timestamp->year, days_since_epoch);
-    new_timestamp->day = get_day(new_timestamp->year, new_timestamp->month, days_since_epoch);
+    fill_month_and_day(new_timestamp, days_since_epoch);
     new_timestamp->second = (current_time % 60);
     new_timestamp->minute = (current_time % 3600) / 60;
     new_timestamp->hour = (current_time % 86400) / 3600;
