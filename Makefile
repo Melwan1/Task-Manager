@@ -12,3 +12,6 @@ all: $(OBJ)
 check: $(OBJ) $(TESTOBJ)
 	$(CC) $(OBJ) $(TESTOBJ) -o testsuite
 	./testsuite
+
+clean:
+	$(RM) $(OBJ) $(TESTOBJ) testsuite task_manager
