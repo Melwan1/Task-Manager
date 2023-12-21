@@ -8,3 +8,7 @@ TESTOBJ=tests/date/date.o
 
 all: $(OBJ)
 	$(CC) $(OBJ) -o task_manager
+
+check: $(OBJ) $(TESTOBJ)
+	$(CC) $(OBJ) $(TESTOBJ) -o testsuite
+	./testsuite
