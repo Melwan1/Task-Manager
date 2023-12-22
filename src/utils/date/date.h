@@ -127,4 +127,6 @@ void fill_month_and_day(struct timestamp *timestamp, int days_since_epoch);
 
 struct timestamp *get_current_date(void);
 
+void print_timestamp(struct timestamp *timestamp);
+
 #endif /* !DATE_H */
