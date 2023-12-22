@@ -1,5 +1,6 @@
 #include "task.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "../utils/date/date.h"
@@ -33,7 +34,7 @@ void task_print(struct task *task)
         return;
     }
     printf("Creation: ");
-    print_timestamp(task->created_at);
+    print_timestamp(task->creation_date);
     printf("Deadline: ");
     print_timestamp(task->due_date);
     printf("Tag: %s\n", task->tag);
