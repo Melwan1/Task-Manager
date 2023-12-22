@@ -35,4 +35,6 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment);
 
 void task_delete(struct task *task);
 
+void task_print(struct task *task);
+
 #endif /* !TASK_H */
