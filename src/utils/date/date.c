@@ -177,5 +177,5 @@ struct timestamp *get_current_date(void)
 
 void print_timestamp(struct timestamp *timestamp)
 {
-    printf("%d-%d-%d %d:%d:%d\n", timestamp->year, timestamp->month, timestamp->day, timestamp->hour, timestamp->minute, timestamp->second);
+    printf("%04d-%02d-%02d %02d:%02d:%02d\n", timestamp->year, timestamp->month, timestamp->day, timestamp->hour, timestamp->minute, timestamp->second);
 }
