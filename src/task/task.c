@@ -83,6 +83,7 @@ void task_change_field(struct task *task, enum task_field field, char *new_field
             free(task->tag);
             task->tag = NULL;
             task->tag = new_field; // the NULL tag is considered valid
+            break;
         case TITLE:
             if (!new_field)
             {
