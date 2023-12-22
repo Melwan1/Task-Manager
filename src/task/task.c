@@ -7,12 +7,24 @@
 
 struct task *task_create(char *due_date, char *tag, char *title, char *comment)
 {
+    if (!title)
+    {
+        fprintf(stderr, "Task-Manager: task_create: title must not be NULL");
+        return;
+    }
     struct task *new_task = malloc(sizeof(*new_task));
     if (!new_task)
     {
         return NULL;
     }
-    new_task->due_date = build_timestamp(due_date);
+    if (!due_date)
+    {
+        new_task->due_date = NULL;
+    }
+    else
+    {
+        new_task->due_date = build_timestamp(due_date);
+    }
     new_task->creation_date = get_current_date();
     new_task->tag = tag;
     new_task->title = title;
