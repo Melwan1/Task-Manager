@@ -42,3 +42,64 @@ void task_print(struct task *task)
     printf("Comment: %s\n", task->title);
     fflush(stdout);
 }
+
+void task_change_field(struct task *task, enum task_field field, char *new_field)
+{
+    if (!task)
+    {
+        fprintf(stderr, "Task-Manager: task_change_field: task is NULL");
+        return;
+    }
+    switch(field)
+    {
+        case CREATION_DATE:
+            free(task->creation_date);
+            task->creation_date = NULL;
+            if (!new_field)
+            {
+                task->creation_date = get_current_date();
+            }
+            else
+            {
+                task->creation_date = build_timestamp(new_field);
+            }
+            break;
+        case DUE_DATE:
+            if (!new_field)
+            {
+                fprintf(stderr, "[INFO] Task-Manager: task_change_field: new field is NULL");
+            }
+            free(task->due_date);
+            task->due_date = NULL;
+            struct timestamp *new_timestamp = build_timestamp(new_field);
+            if (!new_timestamp)
+            {
+                fprintf(stderr, "Task-Manager: task_change_field: could not change field");
+                return;
+            }
+            task->due_date = new_timestamp;
+            break;
+        case TAG:
+            free(task->tag);
+            task->tag = NULL;
+            task->tag = new_field; // the NULL tag is considered valid
+        case TITLE:
+            if (!new_field)
+            {
+                fprintf(stderr, "Task-Manager: task_change_field: a title is required");
+                return;
+            }
+            free(task->title);
+            task->title = NULL;
+            task->title = new_field;
+            break;
+        case COMMENT:
+            free(task->comment);
+            task->comment = NULL;
+            task->comment = new_field;
+            break;
+        default:
+            fprintf(stderr, "Task-Manager: task_change_field: unrecognized task field");
+            break;
+    }
+}
