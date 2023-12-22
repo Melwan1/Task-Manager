@@ -144,6 +144,7 @@ void fill_month_and_day(struct timestamp *timestamp,
 
 struct timestamp *get_current_date(void)
 {
+    float timezone = 1. // CET
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
     if (!new_timestamp)
     {
@@ -152,7 +153,7 @@ struct timestamp *get_current_date(void)
         return NULL;
     }
     size_t current_time =
-        time(NULL); // int would be fine until Jan 19, 2038 when UNIX timestamp
+        time(NULL) + (int) (timezone * 3600); // int would be fine until Jan 19, 2038 when UNIX timestamp
                     // will exceed int capacity.
     size_t max_size_t = -1;
     if (current_time == max_size_t)
