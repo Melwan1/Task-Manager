@@ -1,6 +1,16 @@
 #ifndef TASK_H
 #define TASK_H
 
+enum task_field
+{
+    CREATION_DATE = 0,
+    DUE_DATE,
+    TAG,
+    TITLE,
+    COMMENT,
+    ERROR
+};
+
 struct task 
 {
     struct timestamp *due_date;
