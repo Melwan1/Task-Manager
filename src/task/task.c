@@ -80,8 +80,6 @@ void task_change_field(struct task *task, enum task_field field, char *new_field
             task->due_date = new_timestamp;
             break;
         case TAG:
-            free(task->tag);
-            task->tag = NULL;
             task->tag = new_field; // the NULL tag is considered valid
             break;
         case TITLE:
@@ -90,13 +88,9 @@ void task_change_field(struct task *task, enum task_field field, char *new_field
                 fprintf(stderr, "Task-Manager: task_change_field: a title is required");
                 return;
             }
-            free(task->title);
-            task->title = NULL;
             task->title = new_field;
             break;
         case COMMENT:
-            free(task->comment);
-            task->comment = NULL;
             task->comment = new_field;
             break;
         default:
