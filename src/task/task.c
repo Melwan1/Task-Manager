@@ -25,3 +25,19 @@ void task_delete(struct task *task)
     free(task->creation_date);
     free(task);
 }
+
+void task_print(struct task *task)
+{
+    if (!task)
+    {
+        return;
+    }
+    printf("Creation: ");
+    print_timestamp(task->created_at);
+    printf("Deadline: ");
+    print_timestamp(task->due_date);
+    printf("Tag: %s\n", task->tag);
+    printf("Title: %s\n", task->title);
+    printf("Comment: %s\n", task->title);
+    fflush(stdout);
+}
