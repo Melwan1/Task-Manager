@@ -47,4 +47,6 @@ void task_delete(struct task *task);
 
 void task_print(struct task *task);
 
+void task_change_field(struct task *task, enum task_field field, char *new_field);
+
 #endif /* !TASK_H */
