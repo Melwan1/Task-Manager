@@ -10,7 +10,7 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment)
     if (!title)
     {
         fprintf(stderr, "Task-Manager: task_create: title must not be NULL");
-        return;
+        return NULL;
     }
     struct task *new_task = malloc(sizeof(*new_task));
     if (!new_task)
