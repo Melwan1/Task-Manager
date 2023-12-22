@@ -144,7 +144,7 @@ void fill_month_and_day(struct timestamp *timestamp,
 
 struct timestamp *get_current_date(void)
 {
-    float timezone = 1. // CET
+    float timezone = 1.; // CET
     struct timestamp *new_timestamp = malloc(sizeof(*new_timestamp));
     if (!new_timestamp)
     {
@@ -173,4 +173,9 @@ struct timestamp *get_current_date(void)
     new_timestamp->hour = (current_time % 86400) / 3600;
 
     return new_timestamp;
+}
+
+void print_timestamp(struct timestamp *timestamp)
+{
+    printf("%d-%d-%d %d:%d:%d", timestamp->year, timestamp->month, timestamp->day, timestamp->hour, timestamp->minute, timestamp->second);
 }
