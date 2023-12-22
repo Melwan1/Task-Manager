@@ -1,5 +1,9 @@
 #include "task.h"
 
+#include <stdlib.h>
+
+#include "../utils/date/date.h"
+
 struct task *task_create(char *due_date, char *tag, char *title, char *comment)
 {
     struct task *new_task = malloc(sizeof(*new_task));
