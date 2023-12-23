@@ -40,6 +40,41 @@ void task_delete(struct task *task)
     free(task);
 }
 
+static void print_line(int width)
+{
+    putchar(' ');
+    for (int bar_index = 0; bar_index < width; bar_index++)
+    {
+        putchar('-');
+    }
+}
+
+void task_print_completion(int percentage, int width)
+{
+    puts("Completion:");
+    // the progress bar is, with percentage = 50 and width = 20:
+    //
+    //      --------------------
+    //     |##########          | 50%
+    //      --------------------
+    print_line(width);
+    putchar('|');
+    for (int completion_index = 0; completion_index < width; completion_index++)
+    {
+        if (completion_index < width * percentage / 100)
+        {
+            putchar('#');
+        }
+        else
+        {
+            putchar(' ');
+        }
+    }
+    putchar('|');
+    printf(" %d%%\n", percentage);
+print_line(width);
+}
+
 void task_print(struct task *task)
 {
     if (!task)
@@ -50,6 +85,7 @@ void task_print(struct task *task)
     print_timestamp(task->creation_date);
     printf("Deadline: ");
     print_timestamp(task->due_date);
+    task_print_completion(task->percentage, 50);
     printf("Tag: %s\n", task->tag);
     printf("Title: %s\n", task->title);
     printf("Comment: %s\n", task->title);
