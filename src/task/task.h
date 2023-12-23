@@ -46,7 +46,7 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment);
 
 void task_delete(struct task *task);
 
-void task_print_completion(struct task *task);
+void task_print_completion(int percentage);
 
 void task_print(struct task *task);
 
