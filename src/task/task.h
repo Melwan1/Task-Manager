@@ -18,6 +18,7 @@ struct task
     char *tag;
     char *title;
     char *comment;
+    int percentage; // between 0 and 100
 };
 
 /* task_create

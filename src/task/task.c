@@ -29,6 +29,7 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment)
     new_task->tag = tag;
     new_task->title = title;
     new_task->comment = comment;
+    new_task->percentage = 0;
     return new_task;
 }
 
@@ -104,6 +105,15 @@ void task_change_field(struct task *task, enum task_field field, char *new_field
             break;
         case COMMENT:
             task->comment = new_field;
+            break;
+        case PERCENTAGE:
+            int new_percentage = atoi(new_field);
+            if (!verify_within_range(new_percentage, 0, 100))
+            {
+                fprintf(stderr, "Task-Manager: task_change_field: the new percentage is not between 0 and 100");
+                return;
+            }
+            task->percentage = new_percentage;
             break;
         default:
             fprintf(stderr, "Task-Manager: task_change_field: unrecognized task field");
