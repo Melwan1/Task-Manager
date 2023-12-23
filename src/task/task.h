@@ -8,6 +8,7 @@ enum task_field
     TAG,
     TITLE,
     COMMENT,
+    PERCENTAGE,
     ERROR
 };
 
