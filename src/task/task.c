@@ -47,6 +47,7 @@ static void print_line(int width)
     {
         putchar('-');
     }
+    putchar('\n');
 }
 
 void task_print_completion(int percentage, int width)
