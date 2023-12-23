@@ -46,6 +46,8 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment);
 
 void task_delete(struct task *task);
 
+void task_print_completion(struct task *task);
+
 void task_print(struct task *task);
 
 void task_change_field(struct task *task, enum task_field field, char *new_field);
