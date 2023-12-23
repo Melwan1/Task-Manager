@@ -46,6 +46,17 @@ struct task *task_create(char *due_date, char *tag, char *title, char *comment);
 
 void task_delete(struct task *task);
 
+/* task_print_completion
+** Prints the percentage of the task in a pretty way.
+**
+** params:
+**
+** - percentage: the percentage of completion of the task
+** - width: the width of the progress bar, excluding the pipes at both ends and the percentage at the right.
+**
+** return: void
+*/
+
 void task_print_completion(int percentage, int width);
 
 void task_print(struct task *task);
