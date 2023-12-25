@@ -32,7 +32,7 @@ struct task_category *create_category(char *name)
     return new_category;
 }
 
-void category_destroy(struct task_category *category)
+void destroy_category(struct task_category *category)
 {
     if (!category)
     {
