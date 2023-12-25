@@ -41,3 +41,23 @@ void destroy_category(struct task_category *category)
     free(category->tasks);
     free(category);
 }
+
+struct task_category *add_task_in_category(struct task_category *category, struct task *task)
+{
+    if (!category)
+    {
+        if (!task || !task->tag)
+        {
+            return NULL;
+        }
+        category = create_category(task->tag);
+        return add_task_in_category(category, task);
+    }
+    if (!task)
+    {
+        return category;
+    }
+    category->tasks = realloc(category->tasks, sizeof(struct task *) * (++category->task_count));
+    category->tasks[category->task_count - 1] = task;
+    return category;
+}
