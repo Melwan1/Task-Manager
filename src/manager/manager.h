@@ -4,6 +4,7 @@
 struct task_category
 {
     char *name;
+    int task_count;
     struct task **tasks; // array of pointers to tasks 
 };
 
