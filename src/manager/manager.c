@@ -101,5 +101,6 @@ struct task_category *remove_task_from_category(struct task_category *category, 
         return category;
     }
     remove_at_in_array(category->tasks, category->task_count, task_index);
-    
+    category->tasks = realloc(category->tasks, sizeof(struct task *) * (--category->task_count));
+    return category;
 }
