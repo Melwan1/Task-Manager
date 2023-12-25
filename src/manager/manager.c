@@ -74,6 +74,14 @@ int find_index_of_element(void **array, void *element, int size)
     return -1; // element has not been found in the array
 }
 
+void remove_at_in_array(void **array, int size, int index)
+{
+    for (int other_index = 0; other_index < size - 1; other_index++)
+    {
+        array[other_index] = array[other_index + 1];
+    }
+}
+
 struct task_category *remove_task_from_category(struct task_category *category, struct task *task)
 {
     if (!category)
@@ -86,5 +94,12 @@ struct task_category *remove_task_from_category(struct task_category *category, 
         fprintf("[INFO] Task-Manager: remove_task_from_category: task is NULL, nothing has been removed\n");
         return category;
     }
+    int task_index = find_index_of_element(category->tasks, task, category->task_count);
+    if (task_index == -1)
+    {
+        fprintf("Task-Manager: remove_task_from_category: task has not been found, remove failed\n");
+        return category;
+    }
+    remove_at_in_array(category->tasks, category->task_count, task_index);
     
 }
