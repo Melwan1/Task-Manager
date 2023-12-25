@@ -31,3 +31,13 @@ struct task_category *create_category(char *name)
     new_category->tasks[0] = NULL;
     return new_category;
 }
+
+void category_destroy(struct task_category *category)
+{
+    if (!category)
+    {
+        return;
+    }
+    free(category->tasks);
+    free(category);
+}
