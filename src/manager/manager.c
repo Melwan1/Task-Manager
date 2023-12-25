@@ -21,14 +21,7 @@ struct task_category *create_category(char *name)
     }
     new_category->name = name;
     new_category->task_count = 0;
-    new_category->tasks = malloc(sizeof(struct task));
-    if (!new_category->tasks)
-    {
-        free(new_category);
-        fprintf("Task-Manager: create_category: malloc failed\n");
-        return NULL;
-    }
-    new_category->tasks[0] = NULL;
+    new_category->tasks = NULL;
     return new_category;
 }
 
