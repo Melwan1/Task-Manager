@@ -97,3 +97,15 @@ struct task_category *remove_task_from_category(struct task_category *category, 
     category->tasks = realloc(category->tasks, sizeof(struct task *) * (--category->task_count));
     return category;
 }
+
+void print_category(struct task_category *category)
+{
+    printf("Category: %s\n", category->name);
+    puts("------------------------------");
+    for (int index = 0; index < category->task_count; index++)
+    {
+        task_print(category->tasts[index]);
+    }
+    putchar('\n');
+    fflush(stdout);
+}
